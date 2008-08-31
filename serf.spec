@@ -1,6 +1,9 @@
-%bcond_without	tests
+#
+# Conditional build:
+%bcond_without	tests	# don't perform "make check"
 #
 Summary:	A high-performance asynchronous HTTP client library
+Summary(pl.UTF-8):	Wysokowydajna biblioteka asynchronicznego klienta HTTP
 Name:		serf
 Version:	0.2.0
 Release:	1
@@ -20,6 +23,13 @@ Apache Portable Runtime (APR) library. It multiplexes connections,
 running the read/write communication asynchronously. Memory copies and
 transformations are kept to a minimum to provide high performance
 operation.
+
+%description -l pl.UTF-8
+Biblioteka serf to napisana w C biblioteka klienta HTTP stworzona w
+oparciu o bibliotekę Apache Portable Runtime (APR). Obsługuje
+połączenia naprzemiennie, wywołując asynchronicznie komunikację
+odczyt-zapis. Kopiowanie i transformacje w pamięci są ograniczone do
+minimum w celu zapewnienia wydajnego działania.
 
 %package devel
 Summary:	Header files for serf
