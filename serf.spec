@@ -5,12 +5,12 @@
 Summary:	A high-performance asynchronous HTTP client library
 Summary(pl.UTF-8):	Wysokowydajna biblioteka asynchronicznego klienta HTTP
 Name:		serf
-Version:	0.2.0
+Version:	0.3.0
 Release:	1
 License:	Apache
 Group:		Libraries
 Source0:	http://serf.googlecode.com/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	cda4d1f871fbbad1b32ed8fd6a8149cc
+# Source0-md5:	d5c7f41d1c9f1589b98affc1fa029982
 URL:		http://code.google.com/p/serf/
 BuildRequires:	apr-devel
 BuildRequires:	apr-util-devel
