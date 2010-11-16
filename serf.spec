@@ -5,15 +5,19 @@
 Summary:	A high-performance asynchronous HTTP client library
 Summary(pl.UTF-8):	Wysokowydajna biblioteka asynchronicznego klienta HTTP
 Name:		serf
-Version:	0.3.0
+Version:	0.7.0
 Release:	1
-License:	Apache
+License:	Apache v2.0
 Group:		Libraries
+#Source0Download: http://code.google.com/p/serf/downloads/list
 Source0:	http://serf.googlecode.com/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	d5c7f41d1c9f1589b98affc1fa029982
+# Source0-md5:	5c4b6d8b44135abbde289b49122bb7af
+Patch0:		%{name}-sh.patch
 URL:		http://code.google.com/p/serf/
 BuildRequires:	apr-devel
 BuildRequires:	apr-util-devel
+BuildRequires:	autoconf >= 2.50
+BuildRequires:	automake
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -37,6 +41,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe serf
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	apr-devel
+Requires:	apr-util-devel
 
 %description devel
 C header files for the serf library.
@@ -58,8 +63,11 @@ Statyczne biblioteki serf.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
+%{__aclocal} -I build
+%{__autoconf}
 %configure \
 	--with-apr=%{_prefix} \
 	--with-apr-util=%{_prefix} \
@@ -83,15 +91,15 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES NOTICE README
-%attr(755,root,root) %{_libdir}/libserf-*.so.*.*
-%attr(755,root,root) %ghost %{_libdir}/libserf-*.so.[0-9]
+%attr(755,root,root) %{_libdir}/libserf-0.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libserf-0.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libserf-*.so
-%{_libdir}/libserf-*.la
+%attr(755,root,root) %{_libdir}/libserf-0.so
+%{_libdir}/libserf-0.la
 %{_includedir}/serf*.h
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libserf-*.a
+%{_libdir}/libserf-0.a

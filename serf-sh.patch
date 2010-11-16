@@ -1,0 +1,11 @@
+--- serf-0.7.0/configure.in.orig	2009-07-28 00:20:24.000000000 +0200
++++ serf-0.7.0/configure.in	2010-11-16 21:59:51.355099937 +0100
+@@ -78,7 +78,7 @@
+ AC_SUBST(APR_VERSION)
+ AC_SUBST(APR_CONFIG)
+ 
+-APR_VERSION_MAJOR="`echo \"$APR_VERSION\" | sed 's,\..*,,'`"
++APR_VERSION_MAJOR="$(echo "$APR_VERSION" | sed 's,\..*,,')"
+ APR_VERSION_NUM="`echo \"$APR_VERSION\" | \
+                 sed -e 's/[[^0-9\.]].*$//' \
+                     -e 's/\.\([[0-9]]\)$/.0\1/' \
