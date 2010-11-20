@@ -82,6 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+chmod 755 $RPM_BUILD_ROOT%{_libdir}/lib*.so*
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
