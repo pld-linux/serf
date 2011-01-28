@@ -19,6 +19,7 @@ BuildRequires:	apr-util-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	openssl-devel >= 0.9.7d
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
