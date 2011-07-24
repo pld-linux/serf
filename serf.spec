@@ -1,17 +1,17 @@
 #
 # Conditional build:
-%bcond_without	tests	# don't perform "make check"
+%bcond_with	tests	# perform "make check" (uses localhost network, fails on apr side when IPV6 is enabled and localhost resolves only to IPV4 addresses)
 #
 Summary:	A high-performance asynchronous HTTP client library
 Summary(pl.UTF-8):	Wysokowydajna biblioteka asynchronicznego klienta HTTP
 Name:		serf
-Version:	0.7.2
+Version:	1.0.0
 Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: http://code.google.com/p/serf/downloads/list
 Source0:	http://serf.googlecode.com/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	66ed12163b14b704888e628ee38e9581
+# Source0-md5:	3b179ed18f65c43141528aa6d2440db4
 Patch0:		%{name}-sh.patch
 URL:		http://code.google.com/p/serf/
 BuildRequires:	apr-devel
@@ -94,15 +94,16 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES NOTICE README
-%attr(755,root,root) %{_libdir}/libserf-0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libserf-0.so.0
+%attr(755,root,root) %{_libdir}/libserf-1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libserf-1.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libserf-0.so
-%{_libdir}/libserf-0.la
+%attr(755,root,root) %{_libdir}/libserf-1.so
+%{_libdir}/libserf-1.la
 %{_includedir}/serf*.h
+%{_pkgconfigdir}/serf-1.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libserf-0.a
+%{_libdir}/libserf-1.a
