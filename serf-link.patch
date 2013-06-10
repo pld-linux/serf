@@ -11,3 +11,14 @@
      fi
    fi
  ])
+--- serf-1.2.1/configure.in~	2013-06-10 11:36:11.000000000 +0200
++++ serf-1.2.1/configure.in	2013-06-10 11:39:28.923569641 +0200
+@@ -228,7 +228,7 @@
+ 	fi
+ 	APR_ADDTO(CFLAGS, "$GSSAPI_cflags")
+ 	APR_ADDTO(CFLAGS, [-DSERF_HAVE_GSSAPI])
+-	APR_ADDTO(LDFLAGS, "$GSSAPI_libs")
++	APR_ADDTO(LIBS, "$GSSAPI_libs")
+ 	AC_MSG_CHECKING([if gssapi works])
+ 	AC_LINK_IFELSE([AC_LANG_SOURCE([[
+ #include <gssapi.h>
