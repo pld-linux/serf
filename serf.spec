@@ -1,27 +1,25 @@
 #
 # Conditional build:
 %bcond_without	kerberos5	# GSSAPI support
-%bcond_with	tests		# perform "make check" (uses localhost network, fails on apr side when IPV6 is enabled and localhost resolves only to IPV4 addresses)
+%bcond_with	tests		# perform "scons check" (uses localhost network, fails on apr side when IPV6 is enabled and localhost resolves only to IPV4 addresses)
 #
 Summary:	A high-performance asynchronous HTTP client library
 Summary(pl.UTF-8):	Wysokowydajna biblioteka asynchronicznego klienta HTTP
 Name:		serf
-Version:	1.2.1
-Release:	2
+Version:	1.3.1
+Release:	1
 License:	Apache v2.0
 Group:		Libraries
 #Source0Download: http://code.google.com/p/serf/downloads/list
 Source0:	http://serf.googlecode.com/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	4f8e76c9c6567aee1d66aba49f76a58b
-Patch0:		%{name}-sh.patch
-Patch1:		%{name}-link.patch
+# Source0-md5:	da5aca0cad19fd9c19129c3f8f7393dd
+Patch0:		%{name}-scons.patch
 URL:		http://code.google.com/p/serf/
 BuildRequires:	apr-devel
 BuildRequires:	apr-util-devel
-BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake
 %{?with_kerberos5:BuildRequires:	heimdal-devel}
 BuildRequires:	openssl-devel >= 0.9.7d
+BuildRequires:	scons >= 2.3.0
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -47,6 +45,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	apr-devel
 Requires:	apr-util-devel
 %{?with_kerberos5:Requires:	heimdal-devel}
+Requires:	openssl-devel >= 0.9.7d
 
 %description devel
 C header files for the serf library.
@@ -69,27 +68,24 @@ Statyczne biblioteki serf.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
-%{__aclocal} -I build
-%{__autoconf}
-%configure \
-	--with-apr=%{_prefix} \
-	--with-apr-util=%{_prefix} \
-	%{?with_kerberos5:--with-gssapi=%{_prefix}} \
-	--with-openssl=%{_prefix}
-%{__make}
+%scons \
+	PREFIX=%{_prefix} \
+	LIBDIR=%{_libdir} \
+	GSSAPI=/usr
 
-%{?with_tests:%{__make} check}
+%if %{with tests}
+%scons check
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-chmod 755 $RPM_BUILD_ROOT%{_libdir}/lib*.so*
+%scons install \
+	PREFIX=%{_prefix} \
+	LIBDIR=%{_libdir} \
+	--install-sandbox=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -101,13 +97,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGES NOTICE README
 %attr(755,root,root) %{_libdir}/libserf-1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libserf-1.so.0
+%attr(755,root,root) %ghost %{_libdir}/libserf-1.so.3
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libserf-1.so
-%{_libdir}/libserf-1.la
-%{_includedir}/serf*.h
+%{_includedir}/serf-1
 %{_pkgconfigdir}/serf-1.pc
 
 %files static
