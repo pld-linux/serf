@@ -7,12 +7,13 @@ Summary:	A high-performance asynchronous HTTP client library
 Summary(pl.UTF-8):	Wysokowydajna biblioteka asynchronicznego klienta HTTP
 Name:		serf
 Version:	1.3.9
-Release:	2
+Release:	3
 License:	Apache v2.0
 Group:		Libraries
 Source0:	https://www.apache.org/dist/serf/%{name}-%{version}.tar.bz2
 # Source0-md5:	370a6340ff20366ab088012cd13f2b57
 Patch0:		%{name}-scons.patch
+Patch1:		openssl3.patch
 URL:		https://serf.apache.org/
 BuildRequires:	apr-devel
 BuildRequires:	apr-util-devel
@@ -67,6 +68,7 @@ Statyczne biblioteki serf.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %scons \
