@@ -7,7 +7,7 @@ Summary:	A high-performance asynchronous HTTP client library
 Summary(pl.UTF-8):	Wysokowydajna biblioteka asynchronicznego klienta HTTP
 Name:		serf
 Version:	1.3.9
-Release:	4
+Release:	5
 License:	Apache v2.0
 Group:		Libraries
 Source0:	https://www.apache.org/dist/serf/%{name}-%{version}.tar.bz2
