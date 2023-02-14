@@ -10,7 +10,7 @@ Version:	1.3.9
 Release:	6
 License:	Apache v2.0
 Group:		Libraries
-Source0:	https://www.apache.org/dist/serf/%{name}-%{version}.tar.bz2
+Source0:	https://downloads.apache.org/serf/%{name}-%{version}.tar.bz2
 # Source0-md5:	370a6340ff20366ab088012cd13f2b57
 Patch0:		%{name}-scons.patch
 Patch1:		openssl3.patch
